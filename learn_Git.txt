@@ -1,0 +1,64 @@
+配置：
+$ git config --global user.name "zhoulinghui"
+$ git config --global user.email "1357425628@qq.com"
+
+Git指令
+
+	$ pwd （pwd命令用于显示当前目录）
+	$ cat readme.txt （查看文件内容）
+	
+	$ cd /f/Git （选择合适的目录）
+	$ git init （通过git init命令把这个目录变成Git可以管理的仓库）
+	
+	Git添加文件需要add，commit一共两步
+	$ git add readme.txt learn_Git.txt （将写好的文件添加到仓库，备注：可以多次add不同的文件）
+	$ git commit -m "wrote a readme file" （把文件提交到仓库，-m后面输入的是本次提交的说明，可以输入任意内容）
+	
+	查看指令
+	$ git status  （查看仓库当前的状态）
+	$ git diff readme.txt （查看对应文件的difference）
+	$ git log （查看从最近到最远的提交日志）
+	$ git log --pretty=oneline （查看从最近到最远的提交日志）
+	
+	Git回退版本
+	首先，Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，
+	当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+	$ git reset --hard HEAD^
+	$ git reset --hard commit_id （版本号没必要写全，前几位就可以了）
+	
+	Git提供了一个命令git reflog用来记录你的每一次命令
+	$ git reflog
+	
+	撤销修改
+	$ git checkout -- readme.txt
+		把readme.txt文件在’工作区‘的修改全部撤销，这里有两种情况：
+		一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+		一种是readme.txt已经添加到暂存区后，又做了修改，现在，撤销修改就回到添加到暂存区后的状态。
+		总之，就是让这个文件回到最近一次git commit或git add时的状态。
+		
+	删除文件
+	一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了
+	这个时候，Git知道你删除了文件，因此，工作区和版本库就不一致了，git status命令会立刻告诉你哪些文件被删除了。
+	现在你有两个选择：
+	一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit
+		$ git rm readme.txt
+		$ git commit -m "remove readme.txt"
+	另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本
+		$ git checkout -- readme.txt
+		
+	远程仓库 github
+		添加远程库
+		$ git remote add origin git@github.com:hipoppin/readme.git （连接github）
+		$ git push -u origin master （把本地库的所有内容推送到远程库上）
+		第一次推送master分支时，加上了-u参数，
+		此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改。
+		$ git push origin master
+		
+		从远程库克隆
+		$ git clone git@github.com:hipoppin/readme.git
+	
+
+	
+		
+	
+	
