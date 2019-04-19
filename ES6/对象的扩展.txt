@@ -1,0 +1,99 @@
+ES6 允许在对象之中直接写入变量和函数，作为对象的属性和方法
+	例：
+		const foo = 'bar';
+		const baz = {foo};
+		baz // {foo: "bar"}
+
+		// 等同于
+		const baz = {foo: foo};
+		
+	例：
+		function f(x, y) {
+		  return {x, y};
+		}
+
+		// 等同于
+
+		function f(x, y) {
+		  return {x: x, y: y};
+		}
+
+		f(1, 2) // Object {x: 1, y: 2}	
+		
+	除了属性简写，方法也可以简写
+		const o = {
+		  method() {
+			return "Hello!";
+		  }
+		};
+
+		// 等同于
+		const o = {
+		  method: function() {
+			return "Hello!";
+		  }
+		};
+		
+		
+	例：
+		let birth = '2000/01/01';
+		
+		const Person = {
+		  name: '张三',
+
+		  //等同于birth: birth
+		  birth,
+
+		  // 等同于hello: function ()...
+		  hello() { console.log('我的名字是', this.name); }
+
+		};
+		
+	CommonJS 模块输出一组变量，就非常合适使用简洁写法。
+	
+		let ms = {};
+
+		function getItem (key) {
+		  return key in ms ? ms[key] : null;
+		}
+
+		function setItem (key, value) {
+		  ms[key] = value;
+		}
+
+		function clear () {
+		  ms = {};
+		}
+
+		module.exports = { getItem, setItem, clear };
+		// 等同于
+		module.exports = {
+		  getItem: getItem,
+		  setItem: setItem,
+		  clear: clear
+		};
+		
+		
+	
+属性名表达式
+
+	ES6 允许定义对象时，用表达式作为对象的属性名，即把表达式放在方括号内。
+		let lastWord = 'last word';
+
+		const a = {
+		  'first word': 'hello',
+		  [lastWord]: 'world'
+		};
+
+		a['first word'] // "hello"
+		a[lastWord] // "world"
+		a['last word'] // "world"
+		
+	表达式还可以用于定义方法名。
+		let obj = {
+		  ['h' + 'ello']() {
+			return 'hi';
+		  }
+		};
+
+		obj.hello() // hi
